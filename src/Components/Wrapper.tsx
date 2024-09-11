@@ -1,4 +1,4 @@
-import { View, Text, ViewStyle, ViewProps } from 'react-native';
+import { View, ViewStyle, ViewProps } from 'react-native';
 import React from 'react';
 
 type WrapperProps = ViewProps & ViewStyle & {};

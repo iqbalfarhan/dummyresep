@@ -1,16 +1,10 @@
-import {
-  ScrollView,
-  ImageBackground,
-  Image,
-  RefreshControl,
-} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { ScrollView, Image, RefreshControl } from 'react-native';
+import React from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import Wrapper from '../Components/Wrapper';
 import Typo from '../Components/Typo';
 import { ResepType } from '../DataTypes/ResepType';
-import { Octicons } from '@expo/vector-icons';
 import Badge from '../Components/Badge';
 import UnorderList from '../Components/UnorderList';
 import useFetch from '../Hooks/useFetch';

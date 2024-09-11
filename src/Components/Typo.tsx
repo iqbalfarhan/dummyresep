@@ -1,4 +1,4 @@
-import { View, Text, TextProps, TextStyle } from 'react-native';
+import { Text, TextProps, TextStyle } from 'react-native';
 import React from 'react';
 import { useTheme } from '@react-navigation/native';
 

@@ -81,7 +81,7 @@ export default function App() {
         />
       </Stack.Navigator>
       <StatusBar
-        style={theme == 'dark' ? 'light' : 'dark'}
+        style={theme === 'dark' ? 'light' : 'dark'}
         backgroundColor={'#131c23'}
         translucent={false}
       />
