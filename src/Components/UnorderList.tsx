@@ -19,7 +19,7 @@ const UnorderList = ({ label, lists }: UnorderListProps) => {
       <Wrapper paddingLeft={5} opacity={0.7}>
         {lists.map((item, index) => (
           <Wrapper key={index} flexDirection='row' gap={10}>
-            <Wrapper padding={4}>
+            <Wrapper padding={4} paddingTop={7}>
               <Octicons name='dot-fill' color={theme.colors.text} />
             </Wrapper>
             <Typo flex={1}>{item}</Typo>

@@ -37,33 +37,7 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer
-      theme={
-        theme === 'dark'
-          ? {
-              dark: true,
-              colors: {
-                primary: '#ff865b',
-                background: '#131c23',
-                card: '#0e171e',
-                text: '#9fb9d0',
-                border: '#0a131a',
-                notification: '#ffbbbe',
-              },
-            }
-          : {
-              dark: false,
-              colors: {
-                primary: '#ffd900',
-                background: '#ffffff',
-                card: '#e8e8e8',
-                text: '#161616',
-                border: '#d1d1d1',
-                notification: '#ff5860',
-              },
-            }
-      }
-    >
+    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerTitleStyle: { fontFamily: 'Geologica-SemiBold' },

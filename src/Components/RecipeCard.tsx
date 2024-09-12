@@ -25,7 +25,7 @@ const RecipeCard = ({ data }: RecipeCardProps) => {
         style={{ height: 50, width: 50, borderRadius: 10 }}
       />
       <Wrapper>
-        <Typo>{data.name}</Typo>
+        <Typo variant='semibold'>{data.name}</Typo>
         <Typo size={'sm'} opacity={0.5} numberOfLines={1}>
           {[
             data.difficulty,
