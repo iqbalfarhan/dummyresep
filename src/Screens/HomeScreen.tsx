@@ -1,39 +1,48 @@
 import {
-  Text,
   TouchableOpacity,
   ScrollView,
   RefreshControl,
   FlatList,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Wrapper from '../Components/Wrapper';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import { ResepType } from '../DataTypes/ResepType';
-import useFetch from '../Hooks/useFetch';
 import RecipeCard from '../Components/RecipeCard';
 import Input from '../Components/Input';
 import Badge from '../Components/Badge';
 import Typo from '../Components/Typo';
 import { containerGap, containerPadding } from '../Constants/Sizes';
+import { supabase } from '../Utils/Supabase';
 
 const HomeScreen = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Detail'>>();
 
-  const { isLoading, data, error, refetch } = useFetch<{
-    recipes: ResepType[];
-  }>('/recipes');
-
   const [checked, setChecked] = useState<string>('');
   const [cari, setCari] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const [recipes, setRecipes] = useState<ResepType[]>([]);
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
+  async function getRecipes() {
+    setLoading(true);
+    const { data } = await supabase.from('recipes').select();
+    setRecipes(data as ResepType[]);
+    setLoading(false);
+  }
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        <RefreshControl refreshing={loading} onRefresh={getRecipes} />
       }
     >
       <Wrapper padding={containerPadding} gap={containerGap}>
@@ -76,24 +85,23 @@ const HomeScreen = () => {
       </Wrapper>
       <Wrapper padding={containerPadding} gap={containerGap}>
         <Wrapper gap={8}>
-          {error && <Text>Error: {error}</Text>}
-
-          {data &&
-            data.recipes
-              .filter((resep) =>
-                checked !== '' ? resep.mealType.includes(checked) : true,
-              )
-              .filter((resep) =>
-                cari !== '' ? resep.name.includes(cari) : true,
-              )
-              .map((item: ResepType) => (
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => navigate('Detail', { id: item.id })}
-                >
-                  <RecipeCard data={item} />
-                </TouchableOpacity>
-              ))}
+          {recipes
+            .filter((resep) =>
+              checked !== '' ? resep.mealType.includes(checked) : true,
+            )
+            .filter((resep) =>
+              cari !== ''
+                ? resep.name.toLowerCase().includes(cari.toLocaleLowerCase())
+                : true,
+            )
+            .map((item: ResepType) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => navigate('Detail', { id: item.id })}
+              >
+                <RecipeCard data={item} />
+              </TouchableOpacity>
+            ))}
         </Wrapper>
       </Wrapper>
     </ScrollView>
