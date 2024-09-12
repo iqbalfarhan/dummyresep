@@ -1,4 +1,4 @@
-import { ScrollView, Image, RefreshControl } from 'react-native';
+import { Image, RefreshControl } from 'react-native';
 import React, { Fragment, useEffect, useState } from 'react';
 import { DefaultTheme, RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
@@ -10,7 +10,6 @@ import { containerGap, containerPadding, roundedBox } from '../Constants/Sizes';
 import { StatusBar } from 'expo-status-bar';
 import { supabase } from '../Utils/Supabase';
 import ParallaxScrollView from '../Components/ParallaxScrollView';
-import { bgColor } from '../Constants/Colors';
 
 const DetailScreen = () => {
   const { params } = useRoute<RouteProp<RootStackParamList, 'Detail'>>();
