@@ -1,28 +1,18 @@
-import {
-  ScrollView,
-  Image,
-  RefreshControl,
-  ToastAndroid,
-  ImageBackground,
-} from 'react-native';
+import { ScrollView, Image, RefreshControl } from 'react-native';
 import React, { Fragment } from 'react';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { DefaultTheme, RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import Wrapper from '../Components/Wrapper';
 import Typo from '../Components/Typo';
 import { ResepType } from '../DataTypes/ResepType';
 import UnorderList from '../Components/UnorderList';
 import useFetch from '../Hooks/useFetch';
-import Button from '../Components/Button';
 import { containerGap, containerPadding } from '../Constants/Sizes';
+import { StatusBar } from 'expo-status-bar';
 
 const DetailScreen = () => {
   const { params } = useRoute<RouteProp<RootStackParamList, 'Detail'>>();
   const { id } = params;
-
-  const handleLike = () => {
-    ToastAndroid.show('Telah ditambahkan ke daftar anda', ToastAndroid.SHORT);
-  };
 
   const {
     data: resep,
@@ -32,6 +22,7 @@ const DetailScreen = () => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={isLoading} onRefresh={refetch} />
       }
@@ -66,14 +57,14 @@ const DetailScreen = () => {
 
             <UnorderList label='Ingredients' lists={resep.ingredients} />
             <UnorderList label='Instruction' lists={resep.instructions} />
-            <Button
-              label='Tambahkan ke favorite'
-              icon='heart'
-              onPress={handleLike}
-            />
           </Wrapper>
         </Wrapper>
       )}
+      <StatusBar
+        style={'dark'}
+        backgroundColor={DefaultTheme.colors.card}
+        translucent={false}
+      />
     </ScrollView>
   );
 };

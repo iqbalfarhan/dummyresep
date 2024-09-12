@@ -8,6 +8,7 @@ export const containerPadding: ViewStyle['padding'] = 30;
 export const containerGap: ViewStyle['gap'] = 30;
 
 export const inputButtonHeight: ViewStyle['height'] = 52;
+export const borderWidth: ViewStyle['borderWidth'] = 0.5;
 export const inputButtonGap: ViewStyle['gap'] = 10;
 export const inputButtonIconSize: number = 20;
 

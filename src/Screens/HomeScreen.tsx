@@ -27,9 +27,11 @@ const HomeScreen = () => {
   }>('/recipes');
 
   const [checked, setChecked] = useState<string>('');
+  const [cari, setCari] = useState<string>('');
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={isLoading} onRefresh={refetch} />
       }
@@ -37,39 +39,52 @@ const HomeScreen = () => {
       <Wrapper padding={containerPadding} gap={containerGap}>
         <Wrapper paddingVertical={40} gap={0}>
           <Typo size={'base'} opacity={0.5}>
-            Welcome gang
+            Selamat datang
           </Typo>
           <Typo size={'xl4'} variant='bold'>
-            Create your own recipes
+            Mau masak apa hari ini?
           </Typo>
         </Wrapper>
         <Wrapper gap={20}>
-          <Input rightIcon='search' placeholder='Cari resep favorit anda' />
-        </Wrapper>
-        <Wrapper>
-          <FlatList
-            contentContainerStyle={{ gap: 5 }}
-            horizontal
-            data={['', 'Beverage', 'Snacks', 'Dinner', 'Lunch', 'Breakfast']}
-            style={{ gap: 10 }}
-            renderItem={(tag) => (
-              <TouchableOpacity onPress={() => setChecked(tag.item)}>
-                <Badge
-                  checked={checked === tag.item}
-                  label={tag.item !== '' ? tag.item : 'semua'}
-                />
-              </TouchableOpacity>
-            )}
-            showsHorizontalScrollIndicator={false}
+          <Input
+            rightIcon='search'
+            placeholder='Cari resep favorit anda'
+            value={cari}
+            onChangeText={(text) => setCari(text)}
           />
         </Wrapper>
-        <Wrapper gap={5}>
+      </Wrapper>
+      <Wrapper>
+        <FlatList
+          contentContainerStyle={{
+            gap: 5,
+            paddingHorizontal: containerPadding,
+          }}
+          horizontal
+          data={['', 'Beverage', 'Snacks', 'Dinner', 'Lunch', 'Breakfast']}
+          style={{ gap: 10 }}
+          renderItem={(tag) => (
+            <TouchableOpacity onPress={() => setChecked(tag.item)}>
+              <Badge
+                checked={checked === tag.item}
+                label={tag.item !== '' ? tag.item : 'Semua'}
+              />
+            </TouchableOpacity>
+          )}
+          showsHorizontalScrollIndicator={false}
+        />
+      </Wrapper>
+      <Wrapper padding={containerPadding} gap={containerGap}>
+        <Wrapper gap={8}>
           {error && <Text>Error: {error}</Text>}
 
           {data &&
             data.recipes
               .filter((resep) =>
                 checked !== '' ? resep.mealType.includes(checked) : true,
+              )
+              .filter((resep) =>
+                cari !== '' ? resep.name.includes(cari) : true,
               )
               .map((item: ResepType) => (
                 <TouchableOpacity

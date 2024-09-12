@@ -1,11 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import HomeScreen from './src/Screens/HomeScreen';
 import DetailScreen from './src/Screens/DetailScreen';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,8 +23,6 @@ export default function App() {
     'Geologica-SemiBold': require('./assets/fonts/Geologica-SemiBold.ttf'),
     'Geologica-Medium': require('./assets/fonts/Geologica-Medium.ttf'),
   });
-
-  const [theme] = useState('dark');
 
   useEffect(() => {
     if (loaded) {
@@ -55,8 +53,8 @@ export default function App() {
         />
       </Stack.Navigator>
       <StatusBar
-        style={theme === 'dark' ? 'light' : 'dark'}
-        backgroundColor={'#131c23'}
+        style={'dark'}
+        backgroundColor={DefaultTheme.colors.background}
         translucent={false}
       />
     </NavigationContainer>

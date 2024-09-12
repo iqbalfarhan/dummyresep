@@ -20,7 +20,7 @@ export default function Badge({
 }: BadgeProps) {
   return (
     <Wrapper
-      opacity={checked ? 1 : 0.7}
+      opacity={checked ? 1 : 0.5}
       padding={3}
       paddingHorizontal={10}
       backgroundColor={bgColor[variant]}
